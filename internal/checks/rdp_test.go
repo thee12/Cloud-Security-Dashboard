@@ -88,3 +88,22 @@ func TestCheckBroadRDPIngress(t *testing.T) {
 		})
 	}
 }
+
+func TestCheckBroadRDPIngressReturnsUnknownWhenRulesAreMissing(t *testing.T) {
+	resource := model.Resource{
+		ID:       "missing-rules-resource",
+		Name:     "unknown-nsg",
+		Provider: "azure",
+		Type:     "network_security_group",
+		Rules:    nil,
+	}
+
+	result := CheckBroadRDPIngress(resource)
+
+	if result.Status != "UNKNOWN" {
+		t.Errorf(
+			"expected status UNKNOWN, received %s",
+			result.Status,
+		)
+	}
+}

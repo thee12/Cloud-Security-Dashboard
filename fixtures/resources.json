@@ -32,5 +32,11 @@
         "priority": 100
       }
     ]
+  },
+  {
+  "id": "/subscriptions/sample/resourceGroups/demo/providers/Microsoft.Network/networkSecurityGroups/unknown-nsg",
+  "name": "unknown-nsg",
+  "provider": "azure",
+  "type": "network_security_group"
   }
 ]

@@ -9,6 +9,18 @@ import (
 const BroadRDPCheckID = "AZURE-NSG-001"
 
 func CheckBroadRDPIngress(resource model.Resource) model.CheckResult {
+	if resource.Rules == nil {
+		return model.CheckResult{
+			CheckID:    BroadRDPCheckID,
+			ResourceID: resource.ID,
+			Status:     "UNKNOWN",
+			Severity:   "HIGH",
+			Message:    "Network security rules were unavailable, so RDP exposure could not be evaluated.",
+			Evidence: map[string]any{
+				"reason": "missing rule data",
+			},
+		}
+	}
 	result := model.CheckResult{
 		CheckID:    BroadRDPCheckID,
 		ResourceID: resource.ID,
