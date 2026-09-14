@@ -1,0 +1,36 @@
+[
+  {
+    "id": "/subscriptions/sample/resourceGroups/demo/providers/Microsoft.Network/networkSecurityGroups/web-nsg",
+    "name": "web-nsg",
+    "provider": "azure",
+    "type": "network_security_group",
+    "rules": [
+      {
+        "name": "AllowHTTPS",
+        "direction": "Inbound",
+        "access": "Allow",
+        "protocol": "TCP",
+        "source": "0.0.0.0/0",
+        "destinationPort": "443",
+        "priority": 100
+      }
+    ]
+  },
+  {
+    "id": "/subscriptions/sample/resourceGroups/demo/providers/Microsoft.Network/networkSecurityGroups/admin-nsg",
+    "name": "admin-nsg",
+    "provider": "azure",
+    "type": "network_security_group",
+    "rules": [
+      {
+        "name": "AllowRDPFromInternet",
+        "direction": "Inbound",
+        "access": "Allow",
+        "protocol": "TCP",
+        "source": "0.0.0.0/0",
+        "destinationPort": "3389",
+        "priority": 100
+      }
+    ]
+  }
+]

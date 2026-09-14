@@ -1,0 +1,23 @@
+# Environment variables and credentials
+.env
+*.pem
+*.key
+
+# Local application data
+data/
+reports/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Node
+node_modules/
+dist/
+
+# Editors and operating systems
+.vscode/
+.DS_Store
+Thumbs.db
