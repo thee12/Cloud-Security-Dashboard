@@ -21,6 +21,7 @@ func CheckBroadRDPIngress(resource model.Resource) model.CheckResult {
 			},
 		}
 	}
+
 	result := model.CheckResult{
 		CheckID:    BroadRDPCheckID,
 		ResourceID: resource.ID,
@@ -30,7 +31,7 @@ func CheckBroadRDPIngress(resource model.Resource) model.CheckResult {
 	}
 
 	for _, rule := range resource.Rules {
-		if isBroadRDPRule(rule) {
+		if isBroadInboundRule(rule, "3389") {
 			result.Status = "FAIL"
 			result.Message = "RDP is allowed from the public internet."
 			result.Evidence = map[string]any{
@@ -47,19 +48,23 @@ func CheckBroadRDPIngress(resource model.Resource) model.CheckResult {
 	return result
 }
 
-func isBroadRDPRule(rule model.NetworkRule) bool {
+func isBroadInboundRule(rule model.NetworkRule, targetPort string) bool {
 	inbound := strings.EqualFold(rule.Direction, "Inbound")
 	allowed := strings.EqualFold(rule.Access, "Allow")
 
-	tcp := strings.EqualFold(rule.Protocol, "TCP") ||
+	matchingProtocol := strings.EqualFold(rule.Protocol, "TCP") ||
 		rule.Protocol == "*"
 
 	publicSource := rule.Source == "*" ||
 		rule.Source == "0.0.0.0/0" ||
 		rule.Source == "::/0"
 
-	rdpPort := rule.DestinationPort == "3389" ||
+	matchingPort := rule.DestinationPort == targetPort ||
 		rule.DestinationPort == "*"
 
-	return inbound && allowed && tcp && publicSource && rdpPort
+	return inbound &&
+		allowed &&
+		matchingProtocol &&
+		publicSource &&
+		matchingPort
 }

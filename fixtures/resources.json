@@ -38,5 +38,22 @@
   "name": "unknown-nsg",
   "provider": "azure",
   "type": "network_security_group"
-  }
+  },
+  {
+  "id": "/subscriptions/sample/resourceGroups/demo/providers/Microsoft.Network/networkSecurityGroups/linux-nsg",
+  "name": "linux-nsg",
+  "provider": "azure",
+  "type": "network_security_group",
+  "rules": [
+    {
+      "name": "AllowSSHFromInternet",
+      "direction": "Inbound",
+      "access": "Allow",
+      "protocol": "TCP",
+      "source": "0.0.0.0/0",
+      "destinationPort": "22",
+      "priority": 100
+    }
+  ]
+}
 ]
