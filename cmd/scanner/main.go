@@ -59,14 +59,15 @@ func main() {
 	}
 	defer pool.Close()
 
-	scanID, err := store.CreateScan(ctx, pool, "fixture")
+	scanID, err := store.SaveScan(
+		ctx,
+		pool,
+		"fixture",
+		resources,
+		results,
+	)
 	if err != nil {
-		fmt.Printf("Could not create scan: %v\n", err)
-		os.Exit(1)
-	}
-
-	if err := store.CompleteScan(ctx, pool, scanID); err != nil {
-		fmt.Printf("Could not complete scan: %v\n", err)
+		fmt.Printf("Could not save scan: %v\n", err)
 		os.Exit(1)
 	}
 
