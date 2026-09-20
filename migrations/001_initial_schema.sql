@@ -1,4 +1,4 @@
-CREATE TABLE scans (
+CREATE TABLE IF NOT EXISTS scans (
     id BIGSERIAL PRIMARY KEY,
     started_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     completed_at TIMESTAMPTZ,
@@ -9,7 +9,7 @@ CREATE TABLE scans (
     error_message TEXT
 );
 
-CREATE TABLE resources (
+CREATE TABLE IF NOT EXISTS resources (
     id BIGSERIAL PRIMARY KEY,
     scan_id BIGINT NOT NULL REFERENCES scans(id) ON DELETE CASCADE,
     cloud_resource_id TEXT NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE resources (
     UNIQUE (scan_id, cloud_resource_id)
 );
 
-CREATE TABLE check_results (
+CREATE TABLE IF NOT EXISTS check_results (
     id BIGSERIAL PRIMARY KEY,
     scan_id BIGINT NOT NULL REFERENCES scans(id) ON DELETE CASCADE,
     resource_id BIGINT NOT NULL REFERENCES resources(id) ON DELETE CASCADE,
@@ -36,14 +36,14 @@ CREATE TABLE check_results (
     UNIQUE (scan_id, resource_id, check_id)
 );
 
-CREATE INDEX idx_resources_scan_id
+CREATE INDEX IF NOT EXISTS idx_resources_scan_id
     ON resources(scan_id);
 
-CREATE INDEX idx_check_results_scan_id
+CREATE INDEX IF NOT EXISTS idx_check_results_scan_id
     ON check_results(scan_id);
 
-CREATE INDEX idx_check_results_status
+CREATE INDEX IF NOT EXISTS idx_check_results_status
     ON check_results(status);
 
-CREATE INDEX idx_check_results_check_id
+CREATE INDEX IF NOT EXISTS idx_check_results_check_id
     ON check_results(check_id);
