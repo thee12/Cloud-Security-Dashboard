@@ -1,0 +1,60 @@
+[
+  {
+    "id": "/subscriptions/sample/resourceGroups/demo/providers/Microsoft.Network/networkSecurityGroups/web-nsg",
+    "name": "web-nsg",
+    "provider": "azure",
+    "type": "network_security_group",
+    "rules": [
+      {
+        "name": "AllowHTTPS",
+        "direction": "Inbound",
+        "access": "Allow",
+        "protocol": "TCP",
+        "source": "0.0.0.0/0",
+        "destinationPort": "443",
+        "priority": 100
+      }
+    ]
+  },
+  {
+    "id": "/subscriptions/sample/resourceGroups/demo/providers/Microsoft.Network/networkSecurityGroups/admin-nsg",
+    "name": "admin-nsg",
+    "provider": "azure",
+    "type": "network_security_group",
+    "rules": [
+      {
+        "name": "AllowRDPFromInternet",
+        "direction": "Inbound",
+        "access": "Allow",
+        "protocol": "TCP",
+        "source": "10.0.0.0/24",
+        "destinationPort": "3389",
+        "priority": 100
+      }
+    ]
+  },
+  {
+  "id": "/subscriptions/sample/resourceGroups/demo/providers/Microsoft.Network/networkSecurityGroups/unknown-nsg",
+  "name": "unknown-nsg",
+  "provider": "azure",
+  "type": "network_security_group",
+  "rules": []
+  },
+  {
+  "id": "/subscriptions/sample/resourceGroups/demo/providers/Microsoft.Network/networkSecurityGroups/linux-nsg",
+  "name": "linux-nsg",
+  "provider": "azure",
+  "type": "network_security_group",
+  "rules": [
+    {
+      "name": "AllowSSHFromInternet",
+      "direction": "Inbound",
+      "access": "Allow",
+      "protocol": "TCP",
+      "source": "10.0.0.0/24",
+      "destinationPort": "22",
+      "priority": 100
+    }
+  ]
+}
+]
